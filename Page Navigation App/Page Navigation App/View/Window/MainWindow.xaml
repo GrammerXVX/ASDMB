@@ -1,0 +1,191 @@
+﻿<!--/// <Summary>
+    /// Author : R. Arun Mutharasu
+    /// Created :25-08-2022
+    /// YouTube Channel : C# Design Pro 
+    /// </Summary>-->
+
+<Window x:Class="Page_Navigation_App.View.Window.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
+        xmlns:Menu="clr-namespace:Page_Navigation_App.Utilities"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="600"
+        Width="850"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent">
+
+    <Window.DataContext>
+        <vm:NavigationVM />
+    </Window.DataContext>
+
+    <Grid>
+
+        <!--// Window Border //-->
+
+        <Border Background="#212529"
+                CornerRadius="20" />
+
+        <Grid>
+
+            <!--// Base Grid //-->
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="228" />
+                <ColumnDefinition Width="622" />
+            </Grid.ColumnDefinitions>
+
+            <!--// Navigation Panel //-->
+
+            <Grid HorizontalAlignment="Left"
+                  Width="228">
+
+                <Border Background="#272B2F"
+                        CornerRadius="20,0,0,20" />
+
+                <StackPanel Height="400"
+                            Width="228">
+
+                    <!--// Home //-->
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding HomeCommand}"
+                              IsChecked="True">
+
+                        <Grid>
+
+                            <Image Source="Images/img_home.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Главная"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+
+                    <!--// Service //-->
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding ServiceCommand}"
+                              >
+
+                        <Grid>
+
+                            <Image Source="Images/img_service.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Услуги"                                      Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+
+                    <!--// Search //-->
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding SearchCommand}">
+
+                        <Grid>
+
+                            <Image Source="Images/img_search.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Поиск"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+
+                    <!--// Info //-->
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding InfoCommand}">
+
+                        <Grid>
+
+                            <Image Source="Images/img_info.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Инфо"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+
+                    <!--// Settings //-->
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding SettingsCommand}">
+
+                        <Grid>
+
+                            <Image Source="Images/img_settings.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Настройки"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+                    
+                    <!--// Logout //-->
+                    
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding OpenWindowCommand}">
+
+                        <Grid>
+
+                            <Image Source="Images/img_logout.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Выйти"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+
+                </StackPanel>
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+
+                <ContentControl x:Name="Pages"
+                                Content="{Binding CurrentView}" />
+
+            </Grid>
+
+        </Grid>
+
+        <Button x:Name="CloseApp"
+                Style="{StaticResource ExitApp}"
+                Click="CloseApp_Click" />
+        <TextBlock Text="Б Е Т А  0.1"
+                   Foreground="#525965"
+                   FontFamily="Fonts/#Orbitron Medium"
+                   FontSize="15"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,10,16" />
+
+        <Border Background="#007fdc"
+                Height="20"
+                CornerRadius="3,0,0,3"
+                Width="5"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Margin="0,0,0,15" />
+
+    </Grid>
+
+</Window>

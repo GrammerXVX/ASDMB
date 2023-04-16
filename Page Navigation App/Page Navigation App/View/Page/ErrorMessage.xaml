@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Page_Navigation_App.View.Page.ErrorMessage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
+             mc:Ignorable="d" 
+      d:DesignHeight="50"
+        Width="350"
+      Style="{StaticResource Error_Page_Style}">
+
+    <UserControl.DataContext>
+        <vm:ErrorVM />
+    </UserControl.DataContext>
+    
+    <Grid>
+
+        <Border Background="Transparent"
+                CornerRadius="20">
+
+
+
+        </Border>
+        <TextBlock Text="Н Е В Е Р Н Ы Й   Л О Г И Н   И Л И   П А Р О Л Ь"
+                   Foreground="Red"
+                   FontFamily="Fonts/#Orbitron Medium"
+                   FontSize="15"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+
+        <Border Background="Red"
+                Height="20"
+                CornerRadius="3,0,0,3"
+                Width="5"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right" />
+        <Border Background="Red"
+                Height="20"
+                CornerRadius="0,3,3,0"
+                Width="5"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left" />
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,165 @@
+﻿<Window x:Class="Page_Navigation_App.View.Window.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Page_Navigation_App"
+        xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
+        xmlns:Menu="clr-namespace:Page_Navigation_App.Utilities"
+        mc:Ignorable="d"
+        Title="Login" 
+        Height="600"
+        Width="350"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent">
+
+    <Window.DataContext>
+        <vm:LoginVM />
+    </Window.DataContext>
+
+    <Grid>
+
+
+        <!--// Window Border //-->
+
+        <Border Background="#212529"
+                CornerRadius="20" />
+
+        <Grid>
+
+            <!--// Base Grid //-->
+
+            <!--<Grid.ColumnDefinitions>
+                <ColumnDefinition Width="228" />
+                <ColumnDefinition Width="622" />
+            </Grid.ColumnDefinitions>-->
+
+            <!--// Navigation Panel //-->
+
+            <Grid HorizontalAlignment="Center"
+                  Width="228"
+                  Height="500">
+
+                <Border Background="#272B2F"
+                        CornerRadius="20,20,20,20" 
+                        />
+
+                <StackPanel
+                    Width="228"
+                    Height="330"
+                    Orientation="Vertical"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center">
+
+                    <!--// Channel Name //-->
+
+                    <Grid Height="50"
+                    VerticalAlignment="Top"
+                    Margin="0,30,0,0">
+
+                        <Border Background="#007fdc"
+                        Height="25"
+                        CornerRadius="3,0,0,3"
+                        Width="6"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right" />
+
+                        <TextBlock Text="А В Т О Р И З А Ц И Я"
+                           Foreground="#FFFFFF"
+                           FontFamily="Fonts/#Orbitron Medium"
+                           FontSize="15"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center" />
+                        <Border Background="#007fdc"
+                        Height="25"
+                        CornerRadius="0,3,3,0"
+                        Width="6"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left" />
+
+                    </Grid >
+                    <Grid Height="50"
+                        VerticalAlignment="Top"
+                        Margin="0,80,0,0">
+
+                        <TextBox x:Name="LoginBox"
+                         Text="{Binding LoginStr, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource SearchBoxStyle}"/>
+
+                        <TextBlock Text="Логин"
+                           Style="{StaticResource SearchTextStyle}"/>
+
+                    </Grid>
+
+
+                    <Grid Height="50"
+                        VerticalAlignment="Top"
+                        Margin="0,0,0,0">
+
+                        <TextBox x:Name="PasswordBox"
+                         Text="{Binding PasswordStr, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource SearchBoxStyle}"/>
+
+                        <TextBlock Text="Пароль"
+                           Style="{StaticResource SearchTextStyle}"/>
+
+                    </Grid>
+
+                </StackPanel>
+                <StackPanel Height="170"
+                            Width="228"
+                            VerticalAlignment="Bottom">
+                    <!--// Logout //-->
+                    <Menu:BtnClicked Style="{StaticResource BtnStyleClick}"
+                                Command="{Binding OpenWindowCommand}"
+                              Margin="0,51,0,0">
+
+                        <Grid >
+
+                            <Image Source="Images/img_logout.png"
+                                   Style="{StaticResource Image_Style}" 
+                                   Margin="55,0,0,0"/>
+
+                            <TextBlock Text="Войти"
+                                       Style="{StaticResource Text_Style}" 
+                                       Margin="93,0,0,0"/>
+
+                        </Grid>
+
+                    </Menu:BtnClicked>
+
+                </StackPanel>
+
+
+
+            </Grid>
+        </Grid>
+
+        <Button x:Name="CloseApp"
+                Style="{StaticResource ExitApp}"
+                Click="CloseApp_Click" />
+        <TextBlock Text="Б Е Т А  0.1"
+                   Foreground="#525965"
+                   FontFamily="Fonts/#Orbitron Medium"
+                   FontSize="15"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,10,16" />
+
+        <Border Background="#007fdc"
+                Height="20"
+                CornerRadius="3,0,0,3"
+                Width="5"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Margin="0,0,0,15" />
+        <Grid Margin="0,320,0,230">
+
+            <ContentControl x:Name="Pages"
+                                Content="{Binding CurrentView}" />
+
+        </Grid>
+    </Grid>
+</Window>
