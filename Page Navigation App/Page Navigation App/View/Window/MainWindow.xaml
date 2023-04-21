@@ -9,8 +9,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
-        xmlns:Menu="clr-namespace:Page_Navigation_App.Utilities"
+        xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel.WindowModel"
+        xmlns:Menu="clr-namespace:Page_Navigation_App.Utilities.Template"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="600"
@@ -21,7 +21,7 @@
         Background="Transparent">
 
     <Window.DataContext>
-        <vm:NavigationVM />
+        <vm:MainWindowViewModel/>
     </Window.DataContext>
 
     <Grid>
@@ -53,13 +53,13 @@
 
                     <!--// Home //-->
 
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                    <Menu:RadioBtn Style="{StaticResource BtnStyle}"
                               Command="{Binding HomeCommand}"
                               IsChecked="True">
 
                         <Grid>
 
-                            <Image Source="Images/img_home.png"
+                            <Image Source="../../Images/img_home.png"
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Главная"
@@ -67,33 +67,34 @@
 
                         </Grid>
 
-                    </Menu:Btn>
+                    </Menu:RadioBtn>
 
                     <!--// Service //-->
 
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                    <Menu:RadioBtn Style="{StaticResource BtnStyle}"
                               Command="{Binding ServiceCommand}"
                               >
 
                         <Grid>
 
-                            <Image Source="Images/img_service.png"
+                            <Image Source="../../Images/img_service.png"
                                    Style="{StaticResource Image_Style}" />
 
-                            <TextBlock Text="Услуги"                                      Style="{StaticResource Text_Style}" />
+                            <TextBlock Text="Услуги"  
+                                       Style="{StaticResource Text_Style}" />
 
                         </Grid>
 
-                    </Menu:Btn>
+                    </Menu:RadioBtn>
 
                     <!--// Search //-->
 
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                    <Menu:RadioBtn Style="{StaticResource BtnStyle}"
                               Command="{Binding SearchCommand}">
 
                         <Grid>
 
-                            <Image Source="Images/img_search.png"
+                            <Image Source="../../Images/img_search.png"
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Поиск"
@@ -101,16 +102,16 @@
 
                         </Grid>
 
-                    </Menu:Btn>
+                    </Menu:RadioBtn>
 
                     <!--// Info //-->
 
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                    <Menu:RadioBtn Style="{StaticResource BtnStyle}"
                               Command="{Binding InfoCommand}">
 
                         <Grid>
 
-                            <Image Source="Images/img_info.png"
+                            <Image Source="../../Images/img_info.png"
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Инфо"
@@ -118,16 +119,16 @@
 
                         </Grid>
 
-                    </Menu:Btn>
+                    </Menu:RadioBtn>
 
                     <!--// Settings //-->
 
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                    <Menu:RadioBtn Style="{StaticResource BtnStyle}"
                               Command="{Binding SettingsCommand}">
 
                         <Grid>
 
-                            <Image Source="Images/img_settings.png"
+                            <Image Source="../../Images/img_settings.png"
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Настройки"
@@ -135,16 +136,16 @@
 
                         </Grid>
 
-                    </Menu:Btn>
+                    </Menu:RadioBtn>
                     
                     <!--// Logout //-->
                     
-                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                    <Menu:RadioBtn Style="{StaticResource BtnStyle}"
                               Command="{Binding OpenWindowCommand}">
 
                         <Grid>
 
-                            <Image Source="Images/img_logout.png"
+                            <Image Source="../../Images/img_logout.png"
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Выйти"
@@ -152,7 +153,7 @@
 
                         </Grid>
 
-                    </Menu:Btn>
+                    </Menu:RadioBtn>
 
                 </StackPanel>
 
@@ -170,7 +171,7 @@
         <Button x:Name="CloseApp"
                 Style="{StaticResource ExitApp}"
                 Click="CloseApp_Click" />
-        <TextBlock Text="Б Е Т А  0.1"
+        <TextBlock Text="Б Е Т А  0.2"
                    Foreground="#525965"
                    FontFamily="Fonts/#Orbitron Medium"
                    FontSize="15"

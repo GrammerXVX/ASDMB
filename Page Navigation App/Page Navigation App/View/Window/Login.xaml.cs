@@ -1,7 +1,4 @@
-﻿using Page_Navigation_App.Model;
-using Page_Navigation_App.Services;
-using Page_Navigation_App.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,11 +22,6 @@ namespace Page_Navigation_App.View.Window
         public Login()
         {
             InitializeComponent();
-
-            var windowService = new WindowService();
-
-            DataContext = new LoginVM(windowService,new MainWindow());
-            
         }
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {

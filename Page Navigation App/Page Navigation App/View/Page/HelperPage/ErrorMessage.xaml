@@ -1,18 +1,14 @@
-﻿<UserControl x:Class="Page_Navigation_App.View.Page.ErrorMessage"
+﻿<UserControl x:Class="Page_Navigation_App.View.Page.HelperPage.ErrorMessage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
+      xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel.HelperPageModel"
              mc:Ignorable="d" 
       d:DesignHeight="50"
         Width="350"
       Style="{StaticResource Error_Page_Style}">
 
-    <UserControl.DataContext>
-        <vm:ErrorVM />
-    </UserControl.DataContext>
-    
     <Grid>
 
         <Border Background="Transparent"
@@ -21,7 +17,7 @@
 
 
         </Border>
-        <TextBlock Text="Н Е В Е Р Н Ы Й   Л О Г И Н   И Л И   П А Р О Л Ь"
+        <TextBlock Text="{Binding ExceptionMessage}"
                    Foreground="Red"
                    FontFamily="Fonts/#Orbitron Medium"
                    FontSize="15"

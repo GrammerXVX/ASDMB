@@ -1,9 +1,6 @@
-﻿using Page_Navigation_App.View.Window;
-using System;
-using System.Collections.Generic;
+﻿using Page_Navigation_App.Services.Interfaces;
+using Page_Navigation_App.View.Window;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Page_Navigation_App.Services

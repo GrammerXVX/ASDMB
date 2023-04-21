@@ -8,12 +8,16 @@ using System.Runtime.CompilerServices;
 
 namespace Page_Navigation_App.Utilities
 {
-    class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propName = null)
+        protected void SetProperty<T>(ref T backingField, T value, [CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            if (!Equals(backingField, value))
+            {
+                backingField = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

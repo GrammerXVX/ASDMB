@@ -24,5 +24,7 @@ namespace Page_Navigation_App.View.Page
         {
             InitializeComponent();
         }
+
+        
     }
 }

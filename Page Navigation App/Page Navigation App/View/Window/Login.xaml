@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Page_Navigation_App"
-        xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
-        xmlns:Menu="clr-namespace:Page_Navigation_App.Utilities"
+        xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel.WindowModel"
+        xmlns:Menu="clr-namespace:Page_Navigation_App.Utilities.Template"
         mc:Ignorable="d"
         Title="Login" 
         Height="600"
@@ -16,7 +16,7 @@
         Background="Transparent">
 
     <Window.DataContext>
-        <vm:LoginVM />
+        <vm:LoginViewModel />
     </Window.DataContext>
 
     <Grid>
@@ -112,7 +112,7 @@
                             Width="228"
                             VerticalAlignment="Bottom">
                     <!--// Logout //-->
-                    <Menu:BtnClicked Style="{StaticResource BtnStyleClick}"
+                    <Menu:DefaultBtn Style="{StaticResource BtnStyleClick}"
                                 Command="{Binding OpenWindowCommand}"
                               Margin="0,51,0,0">
 
@@ -128,7 +128,7 @@
 
                         </Grid>
 
-                    </Menu:BtnClicked>
+                    </Menu:DefaultBtn>
 
                 </StackPanel>
 

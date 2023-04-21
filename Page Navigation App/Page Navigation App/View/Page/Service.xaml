@@ -3,41 +3,364 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
+             xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel.PageModel"
+             xmlns:local="clr-namespace:Page_Navigation_App.Services"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="622"
              Style="{StaticResource Page_Style}">
 
     <UserControl.DataContext>
-        <vm:ServiceVM />
+        <vm:ServiceViewModel/>
     </UserControl.DataContext>
-    
-    <Grid Margin="15">
 
-        <Border CornerRadius="0,20,20,0">
-            <Border.Background>
-                <ImageBrush ImageSource="/Images/customer_page.png"
-                            Stretch="None" />
-            </Border.Background>
-        </Border>
+    <UserControl.Resources>
+        <!--// Add the Value Converter resource //-->
 
-        <TextBlock Text="Customer ID  :"
+        <local:ScrollLimitConverter x:Key="scrollLimitConverter"></local:ScrollLimitConverter>
+        
+        <!--// Style the scrollbar //-->
+
+        <Style TargetType="ScrollBar">
+
+            <Setter Property="SnapsToDevicePixels"
+                    Value="True"/>
+            <Setter Property="OverridesDefaultStyle"
+                    Value="True"/>
+
+            <!--// Style Trigger //-->
+
+            <Style.Triggers>
+
+                <Trigger Property="Orientation"
+                         Value="Vertical">
+
+                    <Setter Property="Width"
+                            Value="80"/>
+                    <Setter Property="Height"
+                            Value="340"/>
+                    <Setter Property="Margin"
+                            Value="0"/>
+
+                    <!--// Create a style template for the scrollbar //-->
+
+                    <Setter Property="Template"
+                            Value="{DynamicResource VerticalScrollBar}"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+        <!--// Template for the Scrollbar //-->
+
+        <ControlTemplate x:Key="VerticalScrollBar"
+                         TargetType="{x:Type ScrollBar}">
+
+            <Grid Margin="10,-65,0,5">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="400"/>
+
+                </Grid.RowDefinitions>
+
+                <!--// Border with a background //-->
+
+                <Border
+                    Grid.Row="1"
+
+                    Margin="10"
+                    Background="#292d32">
+                </Border>
+
+                <!--// Repeat Button - Up Arrow Button //-->
+
+                <!--<RepeatButton
+                    x:Name="rb_Up"
+                    Focusable="False"
+                    Height="80"
+                    Command="ScrollBar.LineUpCommand"
+                    Background="{StaticResource UpArrow_Default}"
+                    Style="{StaticResource ScrollBar_UpArrow}">
+                </RepeatButton>-->
+
+                <!--// Repeat Button - Down Arrow Button //-->
+
+                <!--<RepeatButton
+                    x:Name="rb_Down"
+                    Grid.Row="2"
+                    Focusable="False"
+                    Height="80"
+                    Command="ScrollBar.LineDownCommand"
+                    Background="{StaticResource DownArrow_Default}"
+                    Style="{StaticResource ScrollBar_DownArrow}">
+                </RepeatButton>-->
+
+                <!--// Track - Container for the element that indicates 
+                           the position of the scrollbar //-->
+
+                <Track
+                    Name="PART_Track"
+                    Grid.Row="1"
+                    IsDirectionReversed="True">
+
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton
+                            Margin="3,2,3,2"
+                            Command="ScrollBar.PageUpCommand"          
+                            Style="{StaticResource ScrollBar_Track}"/>
+
+                    </Track.DecreaseRepeatButton>
+
+                    <!--// Thumb - Control that can be dragged by the user //-->
+
+                    <Track.Thumb>
+
+                        <Thumb
+                            
+                            Style="{StaticResource ScrollBar_Thumb}">
+
+                        </Thumb>
+
+                    </Track.Thumb>
+
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton
+                            Margin="3,2,3,2"
+                            Command="ScrollBar.PageDownCommand"
+                            Style="{StaticResource ScrollBar_Track}"/>
+
+                    </Track.IncreaseRepeatButton>
+
+                </Track>
+
+            </Grid>
+
+            <!--// Bind the Value Converter //-->
+
+            <ControlTemplate.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ScrollViewer}, Path=VerticalOffset}" Value="0">
+                    <!--<Setter TargetName="rb_Up" Property="IsEnabled" Value="False"/>-->
+                </DataTrigger>
+                <DataTrigger Value="True">
+                    <DataTrigger.Binding>
+                        <MultiBinding Converter="{StaticResource scrollLimitConverter}">
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ScrollViewer}" Path="VerticalOffset"/>
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ScrollViewer}" Path="ScrollableHeight"/>
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <!--<Setter TargetName="rb_Down" Property="IsEnabled" Value="False"/>-->
+                </DataTrigger>
+            </ControlTemplate.Triggers>
+
+
+        </ControlTemplate>
+
+
+    </UserControl.Resources>
+
+    <Grid Margin="15" Background="#212529" >
+
+        <!--// Create sections for header, body & footer //-->
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--// Header //-->
+
+        <Grid Margin="10,10,10,10">
+            <TextBox Style="{DynamicResource TextBoxStyle1}"                   
+                     Foreground="#CED565"
+                     FontFamily="/Fonts/#Rubik Medium" 
+                     FontSize="35" 
+                     BorderBrush="#292d32"
+                     Background="#292d32" 
+                     Margin="140,0,80,0"
+                     Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"
+                     VerticalContentAlignment="Center"/>
+            <Image Source="../../Images/img_search.png"
+                   Style="{StaticResource Image_Style}" Margin="5,0,0,0" />
+
+            <TextBlock Text="Найти:"
+                       Style="{StaticResource Text_Style}" Margin="40,0,0,0"
+                       FontSize="30"/>
+
+        </Grid>
+
+        <!--// Body //-->
+
+        <Grid
+            Grid.Row="1"
+            Background="#212529">
+        </Grid>
+
+        <!--// Footer //-->
+
+        <!--// Add a ScrollViewer //-->
+
+        <ScrollViewer Grid.Row="1">
+
+            <!--// Create a grid for the scroll images //-->
+
+                <!--<Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="171"/>
+                    <ColumnDefinition Width="171"/>
+                    <ColumnDefinition Width="171"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="180"/>
+                </Grid.RowDefinitions>-->
+
+                <!--// Add a list of images to the ScrollViewer //-->
+                
+                <Grid>
+                    <ItemsControl ItemsSource="{Binding Buttons}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                            <Grid Grid.Row="{Binding Row}" Grid.Column="{Binding Column}" Margin="10">
+                                <Button VerticalAlignment="Top" Style="{DynamicResource ButtonRounded}" Height="150" Width="150">
+                                    <Grid>
+                                        <!--<Image Source="{Binding ImgSource}"
+                                            Style="{StaticResource Image_Style}" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center"
+                                               
+                                            Margin="-70,-70,10,10"/>-->
+                                        <TextBlock Text="{Binding ServiceName}" 
+                                                   Foreground="#DBDBDB" 
+                                                   FontSize="18" 
+                                                   FontFamily="../../Fonts/#Rubik"
+                                                   Margin="10,10,10,30"
+                                                   TextAlignment="Center">
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding ServiceCount}" 
+                                                   Foreground="#6b6b6b" 
+                                                   FontSize="12" 
+                                                   FontFamily="../../Fonts/#Rubik"
+                                                   Margin="10,36,10,0"
+                                                   HorizontalAlignment="Center">
+                                        </TextBlock>
+                                    </Grid>
+                                </Button>
+                                
+
+                                
+
+                            </Grid>
+                        </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+                <!--<Grid Grid.Row="1" Grid.Column="0" Margin="10">
+                    <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+                    <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="2" Margin="10">
+                    <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="0" Margin="10">
+                    <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+                </Grid>
+
+                <Grid Grid.Row="2" Grid.Column="1" Margin="10">
+                    <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+                </Grid>
+
+                <Grid Grid.Row="2" Grid.Column="2" Margin="10">
+                    <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+                </Grid>
+                <Grid Grid.Row="3" Grid.Column="0" Margin="10">
+                    <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+                </Grid>
+
+                <Grid Grid.Row="3" Grid.Column="1" Margin="10">
+                    <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+                </Grid>
+
+                <Grid Grid.Row="3" Grid.Column="2" Margin="10">
+                    <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+                </Grid>
+
+                <Grid Grid.Row="4" Grid.Column="0" Margin="10">
+                    <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+                </Grid>-->
+
+        </ScrollViewer>
+
+    </Grid>
+
+
+
+
+
+    <!--<Grid Margin="15" Background="#212529" >
+
+        <Grid Margin="10,10,10,515">
+            <TextBox Style="{DynamicResource TextBoxStyle1}"                   
+                     Foreground="#CED565"
+                     FontFamily="/Fonts/#Rubik Medium" 
+                     FontSize="35" 
+                     BorderBrush="#292d32"
+                     Background="#292d32" 
+                     Margin="109,0,72,0"/>
+            <Image Source="../../Images/img_search.png"
+                                   Style="{StaticResource Image_Style}" Margin="10,0,0,0" />
+
+            <TextBlock Text="Найти:"
+                                       Style="{StaticResource Text_Style}" Margin="45,0,0,0" />
+
+        </Grid>
+
+        -->
+    <!--<Button Style="{DynamicResource ButtonRounded}" Height="100" Width="200"/>-->
+
+
+
+    <!--White
+        #DBDBDB-->
+
+    <!--Yellow
+        #CED565-->
+
+    <!--GrayBlack
+        #1b1f23-->
+
+    <!--GrayWhite
+        #292d32-->
+
+    <!--Blue
+        #02ceff-->
+
+    <!--FontFamily
+        /Fonts/#Rubik Medium
+        -->
+
+    <!--<TextBlock Text="Customer ID  :"
                    Foreground="#DBDBDB"
                    FontSize="12"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
                    FontFamily="/Fonts/#Rubik Medium"
                    Margin="70,138,0,0" />
-
-        <TextBlock Text="{Binding ServiceID}"
-                   Foreground="#CED565"
-                   FontSize="12"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   FontFamily="/Fonts/#Rubik Medium"
-                   Margin="160,138,0,0" />
-     
-
-    </Grid>
+        -->
+    <!--
+    </Grid>-->
 </UserControl>

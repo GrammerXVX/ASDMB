@@ -41,6 +41,8 @@
     <None Remove="Images\shipment_page.png" />
     <None Remove="Images\shutdown_def.png" />
     <None Remove="Images\shutdown_mo.png" />
+    <None Remove="Images\Thumb_Icon_Default.png" />
+    <None Remove="Images\Thumb_Icon_MouseOver.png" />
     <None Remove="Images\transaction_page.png" />
   </ItemGroup>
 
@@ -93,6 +95,12 @@
     <Content Include="Images\shutdown_mo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Thumb_Icon_Default.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Thumb_Icon_MouseOver.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\transaction_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -118,11 +126,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\DataBaseModel\" />
-    <Folder Include="Services\Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.5" />
@@ -136,6 +139,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\DataBaseModel\Dto\" />
   </ItemGroup>
 
 </Project>

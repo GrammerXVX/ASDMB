@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:hpm="clr-namespace:Page_Navigation_App.ViewModel.HelperPageModel"
+                    xmlns:vph="clr-namespace:Page_Navigation_App.View.Page.HelperPage"
+                    xmlns:vmp="clr-namespace:Page_Navigation_App.ViewModel.PageModel"
+                    xmlns:vp="clr-namespace:Page_Navigation_App.View.Page"
+                    xmlns:m="clr-namespace:Page_Navigation_App.Model">
+
+    <!--<DataTemplate DataType="{x:Type vm:HomeVM}">
+        <view:Home/>
+    </DataTemplate>-->
+    <DataTemplate DataType="{x:Type hpm:ErrorViewModel}">
+        <vph:ErrorMessage/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmp:ServiceViewModel}">
+        <vp:Service />
+    </DataTemplate>
+
+    <!--<DataTemplate DataType="{x:Type vm:SearchVM}">
+        --><!--<view:Search />--><!--
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:InfoVM}">
+        --><!--<view:Info/>--><!--
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:SettingViewModel}">
+        --><!--<view:Settings />--><!--
+    </DataTemplate>-->
+    <DataTemplate DataType="{x:Type m:Button}">
+        <Grid Grid.Row="{Binding Row}" Grid.Column="{Binding Column}" Margin="10">
+            <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
+            <Image Source="../../Images/img_service.png"
+                                   Style="{StaticResource Image_Style}" />
+
+            <TextBlock Text="Услуги"  
+                                       Style="{StaticResource Text_Style}" />
+            
+        </Grid>
+    </DataTemplate>
+
+
+
+</ResourceDictionary>
