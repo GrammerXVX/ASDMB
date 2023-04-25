@@ -22,25 +22,25 @@ namespace Page_Navigation_App.ViewModel.WindowModel
 
         public ICommand OpenWindowCommand { get;}
         public ICommand HomeCommand { get; }
-        public ICommand ServiceCommand { get; }
+        public ICommand CategoriesCommand { get; }
         public ICommand SearchCommand { get; }
         public ICommand InfoCommand { get; }
         public ICommand SettingsCommand { get; }
 
 
         private void Home() => CurrentView = new HomeVM();
-        private void Service() => CurrentView = new ServiceViewModel();
+        private void Categories() => CurrentView = new CategoriesViewModel();
         private void OnOpenWindow(Window Exec) =>
            _windowService.OpenWindow(Exec);
 
         public MainWindowViewModel()
         {
             HomeCommand = new RelayCommand(Home);
-            ServiceCommand = new RelayCommand(Service);
+            CategoriesCommand = new RelayCommand(Categories);
             _windowService = new WindowService();
             OpenWindowCommand = new RelayCommand(()=>OnOpenWindow(new Login()));
             // Startup Page
-            //CurrentView = new HomeVM();
+            CurrentView = new HomeVM();
         }
     }
 }

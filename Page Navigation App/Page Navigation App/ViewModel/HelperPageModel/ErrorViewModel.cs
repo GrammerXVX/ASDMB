@@ -20,6 +20,7 @@ namespace Page_Navigation_App.ViewModel.HelperPageModel
         }
         public ErrorViewModel()
         {
+
         }
     }
 }

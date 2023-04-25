@@ -13,8 +13,11 @@
         <vph:ErrorMessage/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vmp:ServiceViewModel}">
-        <vp:Service />
+    <DataTemplate DataType="{x:Type vmp:CategoriesViewModel}">
+        <vp:Categories/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vmp:ServicesViewModel}">
+        <vp:Services/>
     </DataTemplate>
 
     <!--<DataTemplate DataType="{x:Type vm:SearchVM}">
@@ -28,7 +31,7 @@
     <DataTemplate DataType="{x:Type vm:SettingViewModel}">
         --><!--<view:Settings />--><!--
     </DataTemplate>-->
-    <DataTemplate DataType="{x:Type m:Button}">
+    <DataTemplate DataType="{x:Type m:ButtonForCategory}">
         <Grid Grid.Row="{Binding Row}" Grid.Column="{Binding Column}" Margin="10">
             <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
             <Image Source="../../Images/img_service.png"

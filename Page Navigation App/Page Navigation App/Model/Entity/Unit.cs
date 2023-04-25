@@ -11,9 +11,7 @@ public partial class Unit
 
     public string UnitDescription { get; set; }
 
-    public int DepartmentId { get; set; }
-
-    public virtual Department Department { get; set; }
-
     public virtual ICollection<Position> Positions { get; set; } = new List<Position>();
+
+    public virtual ICollection<Department> Departments { get; set; } = new List<Department>();
 }

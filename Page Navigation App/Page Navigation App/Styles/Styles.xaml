@@ -153,14 +153,18 @@
         <Setter Property="Margin"
                 Value="35,0,0,0" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Text, ElementName=LoginBox}"
-                         Value="">
-                <Setter Property="Visibility"
-                        Value="Visible" />
-            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Text, ElementName=LoginBox}" Value="" />
+                    <Condition Binding="{Binding Text, ElementName=PasswordBox}" Value="" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Visibility" Value="Visible" />
+            </MultiDataTrigger>
         </Style.Triggers>
-        
-        
+
+
+
+
     </Style>
 
     <Style x:Key="PCStyle"
@@ -902,41 +906,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Border Background="Transparent"/>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <!--// Repeat Button style on MouseOver //-->
-
-    <Style x:Key="ScrollBar_UpArrow" TargetType="{x:Type RepeatButton}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type RepeatButton}">
-
-                    <Border x:Name="border" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0"
-                            Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <ImageBrush x:Key="DownArrow_MouseOver" ImageSource="../Images/Down_Arrow_MouseOver.png"/>
-    <Style x:Key="ScrollBar_DownArrow" TargetType="{x:Type RepeatButton}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type RepeatButton}">
-
-                    <Border x:Name="border" CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0"
-                            Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                    </Border>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource DownArrow_MouseOver}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource DownArrow_MouseOver}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

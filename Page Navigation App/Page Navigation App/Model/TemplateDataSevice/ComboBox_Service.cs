@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Page_Navigation_App.ViewModel
+namespace Page_Navigation_App.Model.TemplateDataSevice
 {
-    class HomeVM 
+    public class ComboBox_Service
     {
-
     }
 }

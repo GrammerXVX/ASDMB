@@ -72,7 +72,7 @@
                     <!--// Service //-->
 
                     <Menu:RadioBtn Style="{StaticResource BtnStyle}"
-                              Command="{Binding ServiceCommand}"
+                              Command="{Binding CategoriesCommand}"
                               >
 
                         <Grid>
@@ -156,7 +156,15 @@
                     </Menu:RadioBtn>
 
                 </StackPanel>
-
+                <TextBlock Margin="30,10,10,500" Text="Б е л т е л е к о м"
+                           Foreground="#007fdc"
+                           FontFamily="Fonts/#Orbitron Medium"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center" 
+                           FontWeight="Bold"/>
+                <Image Margin="5,10,10,500" Source="../../Images/icon_btk.png"
+                                   Style="{StaticResource Image_Style}" />
             </Grid>
 
             <Grid Grid.Column="1">

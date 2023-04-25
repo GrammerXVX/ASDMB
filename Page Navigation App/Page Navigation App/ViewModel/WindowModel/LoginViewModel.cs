@@ -1,4 +1,5 @@
-﻿using Page_Navigation_App.Services;
+﻿using Page_Navigation_App.Model.DataBaseModel;
+using Page_Navigation_App.Services;
 using Page_Navigation_App.Services.Interfaces;
 using Page_Navigation_App.Utilities;
 using Page_Navigation_App.View.Window;
@@ -19,6 +20,7 @@ namespace Page_Navigation_App.ViewModel.WindowModel
     class LoginViewModel : ViewModelBase
     {
         private readonly IWindowService _windowService;
+        private readonly BeltelecomDirectoryContext context;
 
         private object _currentView;
         public object CurrentView
@@ -30,30 +32,26 @@ namespace Page_Navigation_App.ViewModel.WindowModel
         public string LoginStr { private get; set; }
         public string PasswordStr { private get; set; }
 
-        public ICommand ErrorMessageCommand { get; set; }
-        public ICommand OpenWindowCommand { get; set; }
-        public ICommand CloseWindowCommand { get; set; }
+        public ICommand ErrorMessageCommand { get;}
+        public ICommand OpenWindowCommand { get;}
+        public ICommand CloseWindowCommand { get;}
 
         private void OnOpenWindow(Window Exec)
         {
-
-            //if (UserDbModel.GetUser(new User() { Password = PasswordStr, UserName = LoginStr }))
-               _windowService.OpenWindow(Exec);
-            //else
-            //    CurrentView = new ErrorVM();
+            if (context.Users.Any(x => x.Login == LoginStr && x.Password == PasswordStr))
+                _windowService.OpenWindow(Exec);
+            else
+                CurrentView = new ErrorViewModel(new Exception(), "Incorrect login or password");
         }
-
         private void OnError() => CurrentView = new ErrorViewModel(new Exception(), "Error");
-        //private void OnCloseWindow()=>
-        //    _windowService.CloseWindow();
-
         public LoginViewModel()
         {
+            context = new BeltelecomDirectoryContext();
+
             ErrorMessageCommand = new RelayCommand(OnError);
             _windowService = new WindowService();
             
             OpenWindowCommand = new RelayCommand(() => OnOpenWindow(new MainWindow()));
-            //_windowService.CloseWindow();
         }
     }
 }

@@ -23,12 +23,14 @@
     <None Remove="Fonts\Rubik-Regular.ttf" />
     <None Remove="Images\customer_page.png" />
     <None Remove="Images\home_page.png" />
+    <None Remove="Images\icon_btk.png" />
     <None Remove="Images\img_customer.png" />
     <None Remove="Images\img_home.png" />
     <None Remove="Images\img_info.png" />
     <None Remove="Images\img_logout.png" />
     <None Remove="Images\img_order.png" />
     <None Remove="Images\img_product.png" />
+    <None Remove="Images\img_reg.png" />
     <None Remove="Images\img_search.png" />
     <None Remove="Images\img_service.png" />
     <None Remove="Images\img_setting.png" />
@@ -53,10 +55,10 @@
     <Resource Include="Fonts\Rubik-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Images\customer_page.png">
+    <Content Include="Images\home_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\home_page.png">
+    <Content Include="Images\icon_btk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\img_home.png">
@@ -68,6 +70,9 @@
     <Content Include="Images\img_logout.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\img_reg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\img_search.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -77,16 +82,7 @@
     <Content Include="Images\img_settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\order_page.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\product_page.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\setting_page.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\shipment_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\shutdown_def.png">
@@ -99,9 +95,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Thumb_Icon_MouseOver.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\transaction_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

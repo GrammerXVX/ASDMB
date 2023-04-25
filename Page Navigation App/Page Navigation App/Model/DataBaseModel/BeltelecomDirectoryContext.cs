@@ -20,6 +20,8 @@ public partial class BeltelecomDirectoryContext : DbContext
 
     public virtual DbSet<Department> Departments { get; set; }
 
+    public virtual DbSet<Description> Descriptions { get; set; }
+
     public virtual DbSet<Employee> Employees { get; set; }
 
     public virtual DbSet<Position> Positions { get; set; }
@@ -32,7 +34,7 @@ public partial class BeltelecomDirectoryContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BeltelecomDirectory;Trusted_Connection=True;");
+        => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BeltelecomDirectory");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,7 +54,7 @@ public partial class BeltelecomDirectoryContext : DbContext
 
         modelBuilder.Entity<Department>(entity =>
         {
-            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__151675D1FCF3E1B0");
+            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__151675D17CFF2186");
 
             entity.Property(e => e.DepartmentId).HasColumnName("Department_ID");
             entity.Property(e => e.DepartmentCity)
@@ -62,7 +64,7 @@ public partial class BeltelecomDirectoryContext : DbContext
                 .HasColumnName("Department_City");
             entity.Property(e => e.DepartmentName)
                 .IsRequired()
-                .HasMaxLength(50)
+                .HasMaxLength(150)
                 .IsUnicode(false)
                 .HasColumnName("Department_Name");
             entity.Property(e => e.DepartmentPhoneNumber)
@@ -81,16 +83,57 @@ public partial class BeltelecomDirectoryContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("Department_Street");
             entity.Property(e => e.EmployeeCount).HasColumnName("Employee_Count");
+
+            entity.HasMany(d => d.Units).WithMany(p => p.Departments)
+                .UsingEntity<Dictionary<string, object>>(
+                    "DepartmentUnit",
+                    r => r.HasOne<Unit>().WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_DepartmentUnits_Unit"),
+                    l => l.HasOne<Department>().WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_DepartmentUnits_Department"),
+                    j =>
+                    {
+                        j.HasKey("DepartmentId", "UnitId");
+                        j.ToTable("DepartmentUnits");
+                        j.IndexerProperty<int>("DepartmentId").HasColumnName("Department_ID");
+                        j.IndexerProperty<int>("UnitId").HasColumnName("Unit_ID");
+                    });
+        });
+
+        modelBuilder.Entity<Description>(entity =>
+        {
+            entity.HasKey(e => e.DescriptionId).HasName("PK__Descript__8D2B489DB9686CDE");
+
+            entity.Property(e => e.DescriptionId).HasColumnName("Description_ID");
+            entity.Property(e => e.Description1)
+                .HasColumnType("text")
+                .HasColumnName("Description");
+            entity.Property(e => e.SpecialNote1)
+                .IsRequired()
+                .HasMaxLength(150)
+                .IsUnicode(false)
+                .HasColumnName("Special_Note1");
+            entity.Property(e => e.SpecialNote2)
+                .IsRequired()
+                .HasMaxLength(150)
+                .IsUnicode(false)
+                .HasColumnName("Special_Note2");
+            entity.Property(e => e.SpecialNote3)
+                .IsRequired()
+                .HasMaxLength(150)
+                .IsUnicode(false)
+                .HasColumnName("Special_Note3");
         });
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__78113481E5D5CED4");
+            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__781134819CDB1B3D");
 
             entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
-            entity.Property(e => e.BirthDate)
-                .HasColumnType("date")
-                .HasColumnName("Birth_Date");
             entity.Property(e => e.DepartmentId).HasColumnName("Department_ID");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
@@ -128,7 +171,7 @@ public partial class BeltelecomDirectoryContext : DbContext
 
         modelBuilder.Entity<Position>(entity =>
         {
-            entity.HasKey(e => e.PositionId).HasName("PK__Position__3C3EAFE6B078993B");
+            entity.HasKey(e => e.PositionId).HasName("PK__Position__3C3EAFE69BFE8F13");
 
             entity.Property(e => e.PositionId).HasColumnName("Position_ID");
             entity.Property(e => e.PositionDescription)
@@ -151,15 +194,13 @@ public partial class BeltelecomDirectoryContext : DbContext
 
         modelBuilder.Entity<Service>(entity =>
         {
-            entity.HasKey(e => e.ServiceId).HasName("PK__Services__BD1A239C4E588DAD");
+            entity.HasKey(e => e.ServiceId).HasName("PK__Services__BD1A239C6276A8C1");
 
             entity.Property(e => e.ServiceId).HasColumnName("Service_ID");
             entity.Property(e => e.CategoryId).HasColumnName("Category_ID");
+            entity.Property(e => e.DescriptionId).HasColumnName("Description_ID");
             entity.Property(e => e.Price).HasColumnType("decimal(8, 2)");
             entity.Property(e => e.ServiceCategoryType).HasColumnName("Service_Category_Type");
-            entity.Property(e => e.ServiceDescription)
-                .HasColumnType("text")
-                .HasColumnName("Service_Description");
             entity.Property(e => e.ServiceName)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -170,34 +211,33 @@ public partial class BeltelecomDirectoryContext : DbContext
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Service_Category");
+
+            entity.HasOne(d => d.Description).WithMany(p => p.Services)
+                .HasForeignKey(d => d.DescriptionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Service_Description");
         });
 
         modelBuilder.Entity<Unit>(entity =>
         {
-            entity.HasKey(e => e.UnitId).HasName("PK__Units__27556B9829279FB9");
+            entity.HasKey(e => e.UnitId).HasName("PK__Units__27556B982DE366A1");
 
             entity.Property(e => e.UnitId).HasColumnName("Unit_ID");
-            entity.Property(e => e.DepartmentId).HasColumnName("Department_ID");
             entity.Property(e => e.UnitDescription)
                 .IsRequired()
-                .HasMaxLength(500)
+                .HasMaxLength(1200)
                 .IsUnicode(false)
                 .HasColumnName("Unit_Description");
             entity.Property(e => e.UnitName)
                 .IsRequired()
-                .HasMaxLength(50)
+                .HasMaxLength(150)
                 .IsUnicode(false)
                 .HasColumnName("Unit_Name");
-
-            entity.HasOne(d => d.Department).WithMany(p => p.Units)
-                .HasForeignKey(d => d.DepartmentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Unit_Department");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__206D919099A4B251");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__206D9190BB840315");
 
             entity.Property(e => e.UserId).HasColumnName("User_ID");
             entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");

@@ -18,13 +18,11 @@ namespace Page_Navigation_App.View.Page
     /// <summary>
     /// Interaction logic for Customers.xaml
     /// </summary>
-    public partial class Service : UserControl
+    public partial class Categories : UserControl
     {
-        public Service()
+        public Categories()
         {
             InitializeComponent();
         }
-
-        
     }
 }
