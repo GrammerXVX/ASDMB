@@ -240,7 +240,7 @@
         <Setter Property="VerticalAlignment"
                 Value="Top" />
         <Setter Property="Margin"
-                Value="0,15,15,0" />
+                Value="0,10,10,0" />
 
         <Setter Property="Template">
 
@@ -271,6 +271,134 @@
                             <Setter Property="Background"
                                     TargetName="border"
                                     Value="{StaticResource close_app_mo}" />
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+    <ImageBrush x:Key="arrow_back_def"
+                ImageSource="/Images/img_arrow_def.png"
+                Stretch="Uniform" />
+
+    <ImageBrush x:Key="arrow_back_mo"
+                ImageSource="/Images/img_arrow_mo.png"
+                Stretch="Uniform" />
+
+    <Style x:Key="BackPage"
+           TargetType="{x:Type Button}">
+
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="Width"
+                Value="40" />
+        <Setter Property="HorizontalAlignment"
+                Value="Right" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="Margin"
+                Value="0,10,10,0" />
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border x:Name="border"
+                            BorderThickness="0"
+                            Background="{StaticResource arrow_back_def}">
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource arrow_back_mo}" />
+
+                        </Trigger>
+
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource arrow_back_mo}" />
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+
+    <ImageBrush x:Key="img_retry_def"
+                ImageSource="/Images/img_retry_def.png"
+                Stretch="Uniform" />
+
+    <ImageBrush x:Key="img_retry_mo"
+                ImageSource="/Images/img_retry_mo.png"
+                Stretch="Uniform" />
+    <Style x:Key="Retry"
+           TargetType="{x:Type Button}">
+
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="Width"
+                Value="40" />
+        <Setter Property="HorizontalAlignment"
+                Value="Right" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="Margin"
+                Value="0,10,10,0" />
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border x:Name="border"
+                            BorderThickness="0"
+                            Background="{StaticResource img_retry_def}">
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource img_retry_mo}" />
+
+                        </Trigger>
+
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{StaticResource img_retry_mo}" />
 
                         </Trigger>
 

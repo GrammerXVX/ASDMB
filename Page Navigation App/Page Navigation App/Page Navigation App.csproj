@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net7.0-windows</TargetFramework>
     <RootNamespace>Page_Navigation_App</RootNamespace>
     <Nullable>disable</Nullable>
@@ -19,11 +19,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="App.config" />
     <None Remove="Fonts\Rubik-Medium.ttf" />
     <None Remove="Fonts\Rubik-Regular.ttf" />
     <None Remove="Images\customer_page.png" />
     <None Remove="Images\home_page.png" />
     <None Remove="Images\icon_btk.png" />
+    <None Remove="Images\img_arrow_def.png" />
+    <None Remove="Images\img_arrow_def2.png" />
+    <None Remove="Images\img_arrow_mo.png" />
+    <None Remove="Images\img_arrow_mo2.png" />
     <None Remove="Images\img_customer.png" />
     <None Remove="Images\img_home.png" />
     <None Remove="Images\img_info.png" />
@@ -31,6 +36,8 @@
     <None Remove="Images\img_order.png" />
     <None Remove="Images\img_product.png" />
     <None Remove="Images\img_reg.png" />
+    <None Remove="Images\img_retry_def.png" />
+    <None Remove="Images\img_retry_mo.png" />
     <None Remove="Images\img_search.png" />
     <None Remove="Images\img_service.png" />
     <None Remove="Images\img_setting.png" />
@@ -55,10 +62,19 @@
     <Resource Include="Fonts\Rubik-Regular.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\home_page.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\icon_btk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\img_arrow_def.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\img_arrow_mo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\img_home.png">
@@ -71,6 +87,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\img_reg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\img_retry_def.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\img_retry_mo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\img_search.png">

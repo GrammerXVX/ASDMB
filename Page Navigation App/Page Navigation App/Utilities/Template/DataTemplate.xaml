@@ -19,7 +19,18 @@
     <DataTemplate DataType="{x:Type vmp:ServicesViewModel}">
         <vp:Services/>
     </DataTemplate>
-
+    <DataTemplate DataType="{x:Type vmp:AdminPanelViewModel}">
+        <vp:AdminPanel/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type hpm:DescriptionViewModel}">
+        <vph:DescriptionPage/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vmp:ListPageViewModel}">
+        <vph:ListPage/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vmp:ChangePageViewModel}">
+        <vp:AdminPanel/>
+    </DataTemplate>
     <!--<DataTemplate DataType="{x:Type vm:SearchVM}">
         --><!--<view:Search />--><!--
     </DataTemplate>
@@ -31,18 +42,4 @@
     <DataTemplate DataType="{x:Type vm:SettingViewModel}">
         --><!--<view:Settings />--><!--
     </DataTemplate>-->
-    <DataTemplate DataType="{x:Type m:ButtonForCategory}">
-        <Grid Grid.Row="{Binding Row}" Grid.Column="{Binding Column}" Margin="10">
-            <Button Style="{DynamicResource ButtonRounded}" Height="150" Width="150"/>
-            <Image Source="../../Images/img_service.png"
-                                   Style="{StaticResource Image_Style}" />
-
-            <TextBlock Text="Услуги"  
-                                       Style="{StaticResource Text_Style}" />
-            
-        </Grid>
-    </DataTemplate>
-
-
-
 </ResourceDictionary>

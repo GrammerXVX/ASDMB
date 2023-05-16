@@ -11,6 +11,7 @@ namespace Page_Navigation_App.Utilities.Helpers
     public class WeakAction
     {
         private Action _staticAction;
+
         protected MethodInfo Method { get; set; }
         public virtual string MethodName
         {

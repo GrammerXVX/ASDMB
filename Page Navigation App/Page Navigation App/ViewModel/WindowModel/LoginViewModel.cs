@@ -1,4 +1,5 @@
-﻿using Page_Navigation_App.Model.DataBaseModel;
+﻿using Microsoft.EntityFrameworkCore;
+using Page_Navigation_App.Model.DataBaseModel;
 using Page_Navigation_App.Services;
 using Page_Navigation_App.Services.Interfaces;
 using Page_Navigation_App.Utilities;
@@ -36,10 +37,18 @@ namespace Page_Navigation_App.ViewModel.WindowModel
         public ICommand OpenWindowCommand { get;}
         public ICommand CloseWindowCommand { get;}
 
-        private void OnOpenWindow(Window Exec)
+        private void OnOpenWindow()
         {
             if (context.Users.Any(x => x.Login == LoginStr && x.Password == PasswordStr))
-                _windowService.OpenWindow(Exec);
+            {
+                if (context.Users.FirstAsync(x => x.Login == LoginStr && x.Password == PasswordStr).Result.Role == "User")
+                    ConfigureSettings.SetParametr("CurrentRole", "1");
+                else
+                    ConfigureSettings.SetParametr("CurrentRole", "0");
+                _windowService.OpenWindow(new MainWindow(),true);
+                context.Dispose();
+            }
+                
             else
                 CurrentView = new ErrorViewModel(new Exception(), "Incorrect login or password");
         }
@@ -51,7 +60,7 @@ namespace Page_Navigation_App.ViewModel.WindowModel
             ErrorMessageCommand = new RelayCommand(OnError);
             _windowService = new WindowService();
             
-            OpenWindowCommand = new RelayCommand(() => OnOpenWindow(new MainWindow()));
+            OpenWindowCommand = new RelayCommand(() => OnOpenWindow());
         }
     }
 }

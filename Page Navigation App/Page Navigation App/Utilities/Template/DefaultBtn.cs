@@ -10,9 +10,7 @@ namespace Page_Navigation_App.Utilities.Template
 {
     public class DefaultBtn : Button
     {
-        static DefaultBtn(){
-
+        static DefaultBtn()=>
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DefaultBtn), new FrameworkPropertyMetadata(typeof(DefaultBtn)));
-        }
-}
+    }
 }

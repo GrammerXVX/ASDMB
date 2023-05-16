@@ -6,19 +6,17 @@
              xmlns:vm="clr-namespace:Page_Navigation_App.Model.TemplateDataSevice"
              xmlns:local="clr-namespace:Page_Navigation_App.Services"
              mc:Ignorable="d"
-             d:DesignHeight="600"
-             d:DesignWidth="620"
+             d:DesignHeight="720"
+             d:DesignWidth="1040"
              Style="{StaticResource Page_Style}">
 
-    
+
 
     <UserControl.Resources>
 
         <!--// Add the Value Converter resource //-->
         <local:ScrollLimitConverter x:Key="scrollLimitConverter"></local:ScrollLimitConverter>
-
         <!--// Style the scrollbar //-->
-
         <Style TargetType="ScrollBar">
 
             <Setter Property="SnapsToDevicePixels"
@@ -34,9 +32,9 @@
                          Value="Vertical">
 
                     <Setter Property="Width"
-                            Value="69"/>
+                            Value="68"/>
                     <Setter Property="Height"
-                            Value="480"/>
+                            Value="600"/>
                     <Setter Property="Margin"
                             Value="0"/>
 
@@ -50,16 +48,14 @@
             </Style.Triggers>
 
         </Style>
-
         <!--// Template for the Scrollbar //-->
-
         <ControlTemplate x:Key="VerticalScrollBar"
                          TargetType="{x:Type ScrollBar}">
 
             <Grid>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="480"/>
+                    <RowDefinition Height="600"/>
 
                 </Grid.RowDefinitions>
 
@@ -82,7 +78,7 @@
 
                     <Track.DecreaseRepeatButton>
                         <RepeatButton
-                            Margin="3,2,3,2"
+    
                             Command="ScrollBar.PageUpCommand"          
                             Style="{StaticResource ScrollBar_Track}"/>
 
@@ -102,7 +98,7 @@
 
                     <Track.IncreaseRepeatButton>
                         <RepeatButton
-                            Margin="3,2,3,2"
+         
                             Command="ScrollBar.PageDownCommand"
                             Style="{StaticResource ScrollBar_Track}"/>
 
@@ -129,6 +125,7 @@
 
 
         </ControlTemplate>
+        <!--// Buttom //-->
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -184,8 +181,224 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--// ComboBox //-->
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <Border x:Name="Border" 
+                    Grid.ColumnSpan="2"
+                    CornerRadius="5"
+                    BorderBrush="{StaticResource cs_BorderBrush}" 
+                    BorderThickness="2"
+                    SnapsToDevicePixels="true"
+                    Background="Transparent">
+                </Border>
+                <Border Grid.Column="1">
+                    <Path x:Name="Arrow" 
+                      Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z" 
+                      Fill="{StaticResource cs_Clouds}" 
+                      Stretch="Fill"
+                      Height="7"
+                      Width="10"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"/>
+                </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource cs_PinkSoft}" TargetName="Border"/>
+                    <Setter Property="Fill" Value="{StaticResource cs_PinkSoft}" TargetName="Arrow"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource cs_PinkSoft}" TargetName="Border"/>
+                    <Setter Property="BorderThickness" Value="0.5 0.5 0.5 3" TargetName="Border"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost"
+                Focusable="False"
+                Background="{TemplateBinding Background}"/>
+        </ControlTemplate>
+        <Style x:Key="ComboBoxStyleService" TargetType="{x:Type ComboBox}">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="/Fonts/#Rubik Medium"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="#CED565"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 0 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton x:Name="ToggleButton"
+                                      Template="{StaticResource ComboBoxToggleButton}"
+                                      Grid.Column="2"
+                                      Focusable="False"
+                                      ClickMode="Press"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <ContentPresenter x:Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="11 0 25 0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          IsEnabled="True"/>
+                            <Label x:Name="Watermark"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Foreground="{StaticResource cs_Watermark}"
+                               Visibility="Collapsed"
+                               Padding="10 0 0 0"
+                               Content="{TemplateBinding Tag}"
+                               FontFamily="Roboto"
+                               FontSize="11"/>
+                            <TextBox x:Name="PART_EditableTextBox"
+                                 Template="{StaticResource ComboBoxTextBox}"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Focusable="True"
+                                 Visibility="Hidden"/>
+                            <Popup x:Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                                <Grid x:Name="DropDown"
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                        BorderThickness="1"
+                                        BorderBrush="#3E434A"
+                                        Background="#3E434A"/>
+                                    <ScrollViewer Margin="4 6 4 6"
+                                              SnapsToDevicePixels="True"
+                                              OverridesDefaultStyle="True"
+                                              Foreground="{StaticResource cs_TextColor}"
+                                              FontFamily="Roboto"
+                                              FontSize="11"/>
+                                    <StackPanel IsItemsHost="True"
+                                            KeyboardNavigation.DirectionalNavigation="Contained">
 
+                                    </StackPanel>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value=""/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible" TargetName="Watermark"/>
+                            </MultiTrigger>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="True">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="AllowsTransparency" Value="True">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="4"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0 2 0 0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
 
+        </Style>
+        <Style x:Key="FocusVisual1">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="OptionMarkFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="14,0,0,0" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#292d32"/>
+        <SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#CED565"/>
+        <SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="#595f69"/>
+        <SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#292d32"/>
+        <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="#CED565"/>
+        <SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="#292d32"/>
+        <SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="#FF3C77DD"/>
+        <SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="#CED565"/>
+        <SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFE6E6E6"/>
+        <SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FFBCBCBC"/>
+        <SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF707070"/>
+        <Style x:Key="RadioButtonStyleService" TargetType="{x:Type RadioButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual1}"/>
+            <Setter Property="Background" Value="{StaticResource RadioButton.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource RadioButton.Static.Border}"/>
+            <Setter Property="Foreground" Value="#CED565"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="/Fonts/#Rubik Medium"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="radioButtonBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="100" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1,1,2,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid x:Name="markGrid" Margin="2">
+                                    <Ellipse x:Name="optionMark" Fill="{StaticResource RadioButton.Static.Glyph}" MinWidth="6" MinHeight="6" Opacity="0"/>
+                                </Grid>
+                            </Border>
+                            <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasContent" Value="true">
+                                <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+                                <Setter Property="Padding" Value="4,-1,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.MouseOver.Border}"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource RadioButton.MouseOver.Glyph}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Border}"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource RadioButton.Disabled.Glyph}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Border}"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource RadioButton.Pressed.Glyph}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter Property="Opacity" TargetName="optionMark" Value="0.56"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
     <Grid Margin="15" Background="#212529" >
@@ -199,21 +412,23 @@
 
         <!--// Header //-->
 
-        <Grid Margin="10,10,10,10">
+        <Grid>
+
             <TextBox Style="{DynamicResource TextBoxStyle1}"                   
                      Foreground="#CED565"
                      FontFamily="/Fonts/#Rubik Medium" 
                      FontSize="35" 
                      BorderBrush="#292d32"
                      Background="#292d32" 
-                     Margin="140,0,80,0"
+                     Margin="170,0,70,0"
                      Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"
-                     VerticalContentAlignment="Center"/>
+                     VerticalContentAlignment="Center" 
+                     Height="60"/>
             <Image Source="../../Images/img_search.png"
-                   Style="{StaticResource Image_Style}" Margin="5,0,0,0" />
+                   Style="{StaticResource Image_Style}" Margin="35,0,0,0" />
 
             <TextBlock Text="Найти:"
-                       Style="{StaticResource Text_Style}" Margin="40,0,0,0"
+                       Style="{StaticResource Text_Style}" Margin="70,0,0,0"
                        FontSize="30"/>
 
         </Grid>
@@ -223,22 +438,30 @@
         <Grid
             Grid.Row="1"
             Background="Transparent">
-            
-            <Grid HorizontalAlignment="Left" Margin="-15,0,0,0">
-                
-                <Border CornerRadius="0,20,20,0"
-                        Height="500" 
-                        Width="170"
+
+            <Grid HorizontalAlignment="Left" Margin="-20,0,0,0">
+
+                <Border CornerRadius="0,10,10,0"
+                        Height="560" 
+                        Width="180"
                         BorderBrush="#292d32"
-                        BorderThickness="2">
-                    
+                        BorderThickness="2"
+                        VerticalAlignment="Top">
+
                 </Border>
-                
+
             </Grid>
-            
+
         </Grid>
-        
-        <ScrollViewer Grid.Row="1">
+        <ContentControl x:Name="Pages"
+                        Content="{Binding thisCurrentView}" 
+                        VerticalContentAlignment="Top"
+                        VerticalAlignment="Top"
+                        Grid.Row="1" 
+                        HorizontalAlignment="Right" 
+                        Width="300" 
+                        Height="620"/>
+        <ScrollViewer Grid.Row="1" HorizontalAlignment="Left">
             <!--// Add a list of images to the ScrollViewer //-->
 
             <Grid>
@@ -246,7 +469,12 @@
                 <ItemsControl ItemsSource="{Binding VariableButtons}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Margin="150,0,0,0" Columns="1" VerticalAlignment="Top" Width="355"/>
+                            <UniformGrid Margin="150,0,0,0" 
+                                         Columns="1" 
+                                         VerticalAlignment="Top" 
+                                         Width="500" 
+                                         HorizontalAlignment="Left"
+                                         />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
@@ -256,7 +484,9 @@
                                         HorizontalContentAlignment="Left"
                                         VerticalAlignment="Top" 
                                         Height="80" 
-                                        Width="340">
+                                        Width="340"
+                                        Command="{Binding Command}"
+                                        CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource Self}}">
                                     <Grid>
                                         <TextBlock HorizontalAlignment="Left" Grid.Column="0" Text="{Binding Param}"
                                                    Foreground="#DBDBDB" 
@@ -272,100 +502,182 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                
-            </Grid>
-            
-        </ScrollViewer>
-        <ContentControl Margin="-15,0,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="440" Width="170">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type vm:Button_Service}">
-                    <Grid>
-                        <Button Content="{Binding Content}" Command="{Binding Command}" />
-                    </Grid>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:ComboBox_Service}">
-                    <Grid>
-                        <ComboBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" />
-                    </Grid>
 
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:RadioButton_Service}">
-                    <Grid>
-                        <RadioButton Content="{Binding Content}" IsChecked="{Binding IsSelected}" />
-                    </Grid>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:TextBox_Service}">
-                    <Grid Margin="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Border CornerRadius="10,10,10,10"
+            </Grid>
+
+        </ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Hidden"  
+                      Margin="-15,5,0,0" Grid.Row="1" 
+                      VerticalAlignment="Top" 
+                      HorizontalAlignment="Left" 
+                      Height="540" 
+                      Width="170">
+            <ContentControl>
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type vm:Button_Service}">
+                        <Grid>
+                            <Button Content="{Binding Content}" Command="{Binding Command}" />
+                        </Grid>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:ComboBox_Service}">
+                        <Grid Margin="0,5">
+                            <Border CornerRadius="10,10,10,10"
+                                    Height="50" 
+                                    Width="160"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="2"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Background="#212529">
+                                <Grid Margin="3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Text"
+                                   Foreground="#DBDBDB"
+                                   FontSize="15"
+                                   FontFamily="../../Fonts/#Rubik"
+                                   TextAlignment="Center"
+                                   Grid.Row="0" 
+                                   Margin="10,-15,10,0"
+                                   Height="20"
+                                   Width="110"
+                                   Background="#212529">
+                                    </TextBlock>
+                                    <ComboBox Style="{DynamicResource ComboBoxStyleService}" ItemsSource="{Binding Items}" 
+                                  SelectedItem="{Binding SelectedItem}" 
+                                  Grid.Row="1"
+                                  />
+                                </Grid>
+
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:RadioButton_Service}">
+                        <Grid Margin="0,5">
+                            <Border CornerRadius="10,10,10,10"
+                                Height="110" 
+                                Width="160"
+                                BorderBrush="#292d32"
+                                BorderThickness="2"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2">
+                                <Grid Margin="3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="75"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Text"
+                                   Foreground="#DBDBDB"
+                                   FontSize="15"
+                                   FontFamily="../../Fonts/#Rubik"
+                                   TextAlignment="Center"
+                                   Grid.Row="0" 
+                                   Margin="10,-15,10,0"
+                                   Height="20"
+                                   Width="110"
+                                   Background="#212529">
+                                    </TextBlock>
+                                    <ItemsControl ItemsSource="{Binding RadioButtons}">
+
+                                    </ItemsControl>
+                                    <RadioButton Style="{DynamicResource RadioButtonStyleService}" Grid.Row="1" 
+                                     Margin="5,5"
+                                     Content="{Binding Content}" 
+                                     IsChecked="{Binding IsSelected}" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:TextBox_Service}">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Border CornerRadius="10,10,10,10"
                                 Height="100" 
                                 Width="160"
                                 BorderBrush="#292d32"
                                 BorderThickness="2"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2">
-                            <Grid Background="#212529" Margin="40,-90,40,0" Width="76" Height="20" >
-                                <TextBlock Text="ОТ и ДО"
+                                <Grid Background="#212529" Margin="40,-90,40,0" Width="76" Height="20" >
+                                    <TextBlock Text="ОТ и ДО"
                                            Foreground="#DBDBDB" 
                                            FontSize="15" 
                                            FontFamily="../../Fonts/#Rubik"
                                            TextAlignment="Center">
-                                </TextBlock>
-                            </Grid>
-                        </Border>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
 
-                        <TextBox Grid.Column="0" 
+                            <TextBox Grid.Column="0" 
                                  Foreground="#CED565"
                                  FontFamily="/Fonts/#Rubik Medium" 
                                  FontSize="20" 
                                  BorderBrush="#292d32"
                                  Background="#292d32" 
-                                 Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"
+                                 Text="{Binding LeftLimit, UpdateSourceTrigger=PropertyChanged}"
                                  VerticalContentAlignment="Center"
                                  HorizontalContentAlignment="Center"
                                  Style="{DynamicResource TextBoxStyle1}" 
                                  Height="30"
                                  Width="70"/>
-                        <TextBox Grid.Column="1" 
+                            <TextBox Grid.Column="1" 
                                  Foreground="#CED565"
                                  FontFamily="/Fonts/#Rubik Medium" 
                                  FontSize="20" 
                                  BorderBrush="#292d32"
                                  Background="#292d32" 
-                                 Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"
+                                 Text="{Binding RightLimit, UpdateSourceTrigger=PropertyChanged}"
                                  VerticalContentAlignment="Center"
                                  HorizontalContentAlignment="Center"
                                  Style="{DynamicResource TextBoxStyle1}" 
                                  Height="30"
                                  Width="70"/>
-                    </Grid>
-                </DataTemplate>
-            </ContentControl.Resources>
-            <ItemsControl ItemsSource="{Binding VariableData}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="1" 
+                        </Grid>
+                    </DataTemplate>
+                </ContentControl.Resources>
+                <ItemsControl ItemsSource="{Binding VariableData}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" 
                                      Width="170" 
                                      Margin="5,10" 
                                      HorizontalAlignment="Center" 
                                      VerticalAlignment="Top"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ContentControl>
-        <Button Grid.Row="1" Margin="5,10" Command="{Binding RoleBackCommand}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{DynamicResource ButtonRounded}" Height="40" Width="125">
-            <TextBlock Grid.Column="0" Text="Н А З А Д"
-                                                   Foreground="#DBDBDB" 
-                                                   FontSize="18" 
-                                                   FontFamily="../../Fonts/#Rubik"
-                                                   Margin="0,0,0,0"
-                                                   TextAlignment="Center"
-                                                   >
-            </TextBlock>
+
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ContentControl>
+        </ScrollViewer>
+        <Button Grid.Row="1" Margin="40,10"  
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom" 
+                Style="{DynamicResource ButtonRounded}" 
+                Height="40" 
+                Width="100"
+                Command="{Binding LocalSearch}">
+            <TextBlock Grid.Column="0" 
+                       Text="П О И С К"
+                       Foreground="#DBDBDB" 
+                       FontSize="18" 
+                       FontFamily="../../Fonts/#Rubik"
+                       Margin="0,0,0,0"
+                       TextAlignment="Center"
+                                                   />
+
         </Button>
+        <Button x:Name="BackPage"
+                        Style="{StaticResource Retry}"
+                        Command="{Binding Reset}"
+                Grid.Row="1" Margin="-5,10"  
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom" 
+                />
     </Grid>
     <!--White
         #DBDBDB-->

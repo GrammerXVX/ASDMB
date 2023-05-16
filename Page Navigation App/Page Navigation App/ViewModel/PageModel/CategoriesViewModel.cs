@@ -1,9 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Page_Navigation_App.Model.DataBaseModel;
+using Page_Navigation_App.Services;
 using Page_Navigation_App.Utilities;
 using Page_Navigation_App.View.Window;
 using Page_Navigation_App.ViewModel.WindowModel;
@@ -32,7 +34,7 @@ namespace Page_Navigation_App.ViewModel.PageModel
                 foreach (Window window in Application.Current.Windows)
                 {
                     if(window is MainWindow)
-                        ((MainWindowViewModel)window.DataContext).CurrentView = value;
+                        ((MainWindowViewModel)window.DataContext).OnOpenPage(value);
                 }
             }
         }
@@ -79,8 +81,8 @@ namespace Page_Navigation_App.ViewModel.PageModel
                         .Count().ToString()
                 });
             }
+            
             VariableButtons = LocalData;
-            //Buttons.Add(new Model.Button() { Row = index++, ServiceName = "+" });
         }
         private void OnPropertyChanged(string propertyName)
         {

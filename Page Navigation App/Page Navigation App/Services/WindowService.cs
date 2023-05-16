@@ -7,9 +7,10 @@ namespace Page_Navigation_App.Services
 {
     public class WindowService : IWindowService
     {
-        public void OpenWindow(Window ExecWindow)
+        public void OpenWindow(Window ExecWindow,bool CloseToken)
         {
             ExecWindow.Show();
+            if(CloseToken)
             foreach (Window CloseWindow in Application.Current.Windows)
             {
                 if (CloseWindow != ExecWindow)

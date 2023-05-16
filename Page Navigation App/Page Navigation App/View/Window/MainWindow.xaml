@@ -1,10 +1,4 @@
-﻿<!--/// <Summary>
-    /// Author : R. Arun Mutharasu
-    /// Created :25-08-2022
-    /// YouTube Channel : C# Design Pro 
-    /// </Summary>-->
-
-<Window x:Class="Page_Navigation_App.View.Window.MainWindow"
+﻿<Window x:Class="Page_Navigation_App.View.Window.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,8 +7,8 @@
         xmlns:Menu="clr-namespace:Page_Navigation_App.Utilities.Template"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="600"
-        Width="850"
+        Height="720"
+        Width="1280"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -23,6 +17,10 @@
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+    </Window.Resources>
 
     <Grid>
 
@@ -36,8 +34,8 @@
             <!--// Base Grid //-->
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="228" />
-                <ColumnDefinition Width="622" />
+                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="1050" />
             </Grid.ColumnDefinitions>
 
             <!--// Navigation Panel //-->
@@ -54,7 +52,7 @@
                     <!--// Home //-->
 
                     <Menu:RadioBtn Style="{StaticResource BtnStyle}"
-                              Command="{Binding HomeCommand}"
+                              Command="{Binding Commands[Home]}"
                               IsChecked="True">
 
                         <Grid>
@@ -72,7 +70,7 @@
                     <!--// Service //-->
 
                     <Menu:RadioBtn Style="{StaticResource BtnStyle}"
-                              Command="{Binding CategoriesCommand}"
+                              Command="{Binding Commands[Category]}"
                               >
 
                         <Grid>
@@ -121,27 +119,14 @@
 
                     </Menu:RadioBtn>
 
-                    <!--// Settings //-->
+                    
 
-                    <Menu:RadioBtn Style="{StaticResource BtnStyle}"
-                              Command="{Binding SettingsCommand}">
-
-                        <Grid>
-
-                            <Image Source="../../Images/img_settings.png"
-                                   Style="{StaticResource Image_Style}" />
-
-                            <TextBlock Text="Настройки"
-                                       Style="{StaticResource Text_Style}" />
-
-                        </Grid>
-
-                    </Menu:RadioBtn>
+                    
                     
                     <!--// Logout //-->
                     
                     <Menu:RadioBtn Style="{StaticResource BtnStyle}"
-                              Command="{Binding OpenWindowCommand}">
+                              Command="{Binding Commands[Exit]}">
 
                         <Grid>
 
@@ -149,6 +134,22 @@
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Выйти"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:RadioBtn>
+                    <!--// Settings //-->
+                    <Menu:RadioBtn Style="{StaticResource BtnStyle}"
+                              Command="{Binding Commands[AdminPanel]}"
+                              Visibility="{Binding IsPanelVisible, Converter={StaticResource BooleanToVisibility}}">
+
+                        <Grid>
+
+                            <Image Source="../../Images/img_settings.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Админ панель"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>
@@ -167,10 +168,12 @@
                                    Style="{StaticResource Image_Style}" />
             </Grid>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" >
 
                 <ContentControl x:Name="Pages"
-                                Content="{Binding CurrentView}" />
+                                Content="{Binding CurrentView}" 
+                                VerticalContentAlignment="Top"
+                                VerticalAlignment="Top"/>
 
             </Grid>
 
@@ -179,6 +182,12 @@
         <Button x:Name="CloseApp"
                 Style="{StaticResource ExitApp}"
                 Click="CloseApp_Click" />
+        <Button x:Name="BackPage"
+                Style="{StaticResource BackPage}"
+                HorizontalAlignment="Left"
+                Margin="240,28"
+                Command="{Binding Commands[Back]}"
+                />
         <TextBlock Text="Б Е Т А  0.2"
                    Foreground="#525965"
                    FontFamily="Fonts/#Orbitron Medium"
